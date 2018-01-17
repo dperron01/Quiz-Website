@@ -1,0 +1,57 @@
+{% extends 'navbar.html' %}
+{% block title %}Create New Topic{% endblock %}
+
+{%block body%}
+<div class="qdiv">
+  <hr /><h2>Create a Question - Create New Topic</h2><hr />
+</div>
+
+
+
+    <form class="form-question-create" method="POST">
+      {{ form.hidden_tag()}}
+      <div class="list-group">
+
+
+      <a href="#" class="list-group-item list-group-item-action list-group-item-info">
+      <div class="">
+      {{ form.topic_name.label }}
+
+      {{ form.topic_name (placeholder='Topic Name')}}
+
+      {% if form.topic_name.errors %}
+        {% for error in form.topic_name.errors %}
+        <div class="alert alert-danger alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          <strong>Alert!</strong> {{ error }}
+        </div>
+        {% endfor %}
+      {% endif %}
+        </div>
+
+      <div class="">
+
+          {{ form.topic_description.label }}
+
+          {{ form.topic_description (placeholder='Topic Description') }}
+
+          {% if form.topic_description.errors %}
+            {% for error in form.topic_description.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+        </div>
+        </a>
+</div>
+        <div class="clearfix">
+        {{ form.submit(class="btn btn-primary", style="width:300px;") }}
+        </div>
+      </form>
+    </div>
+
+    </form>
+{%endblock%}

@@ -1,0 +1,51 @@
+{% extends 'navbar.html' %}
+{% block title %}Delete{% endblock %}
+
+{%block body%}
+
+<div class="container">
+  <div class="card card-container">
+    <h2 style = "font-size:150%;"> Delete an account </h2>
+
+    <form class="form-signin" action="/deleted" method="POST">
+      {{ form.hidden_tag()}}
+
+        <div class="">
+          {{ form.email.label }}
+
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form.email }}
+        </div>
+
+        <div class="">
+          {{ form.password.label }}
+
+          {% if form.password.errors %}
+            {% for error in form.password.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form.password }}
+        </div>
+
+        <div class="clearfix">
+        {{ form.delete(class="btn-primary") }}
+        </div>
+      </form>
+    </div>
+    </form>
+  </div>
+
+{%endblock%}

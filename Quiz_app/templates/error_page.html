@@ -1,0 +1,18 @@
+{% extends 'navbar.html' %}
+{% block title %}Error{% endblock %}
+
+{%block body%}
+
+<div class="qdiv">
+  <hr />
+  <h2>
+    <div class="alert alert-danger alert-dismissable">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      <strong>{{error}}</strong> Please press back!
+    </div>
+  </h2>
+  <hr />
+</div>
+
+
+{%endblock%}

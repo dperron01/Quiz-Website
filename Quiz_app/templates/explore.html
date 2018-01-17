@@ -1,0 +1,33 @@
+{% extends 'navbar.html' %}
+{% block title %}Explore{% endblock %}
+
+{%block body%}
+<div class="qdiv">
+  <hr /><h2>Explore topics by {{method}}</h2><hr />
+</div>
+
+<ul class="pagination">
+  {% for i in range(questions.pages) %}
+  {% if i + 1 == questions.page %}
+  <li class="active"><a href="/explore/{{method}}/{{i + 1}}">{{i + 1}}</a></li>
+  {% else %}
+  <li><a href="/explore/{{method}}/{{i + 1}}">{{i + 1}}</a></li>
+  {% endif %}
+  {% endfor %}
+</ul>
+
+{%for question in questions.items%}
+
+	<a href="/quiz/view/{{question.topic_Name}}" class="list-group-item list-group-item-info"><h4>{{question.topic_Name}}</h4>
+	<p style="color:grey;" class="mb-1">{{question.info}}</p>
+<!-- 	<p style="color:grey;" class="mb-1">Question: {{question.ques}}</p>
+	<p style="color:grey;" class="mb-1">Option A: {{question.optA}}</p>
+	<p style="color:grey;" class="mb-1">Option B: {{question.optB}}</p>
+	<p style="color:grey;" class="mb-1">Option C: {{question.optC}}</p>
+	<p style="color:grey;" class="mb-1">Option D: {{question.optD}}</p> -->
+	</a>
+
+{%endfor%}
+
+
+{%endblock%}

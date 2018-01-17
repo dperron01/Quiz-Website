@@ -1,0 +1,22 @@
+{% extends 'navbar.html' %}
+{% block title %}{{current_user.firstname}}{% endblock %}
+
+{%block body%}
+{% with messages = get_flashed_messages()%}
+              {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-info" role="alert">
+    				<strong>{{ message }}</strong>
+  				</div>
+                {% endfor %}
+              {% endif %}
+{% endwith %}
+
+
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action list-group-item-info"><h3>List Of Users</h3></a>
+  <a href="/admin/topics" class="list-group-item list-group-item-action list-group-item-warning"><h3>Topics for approval</h3></a>
+  <a href="/quiz/questions" class="list-group-item list-group-item-action list-group-item-info"><h3>Quiz questions for approval</h3></a>
+</div>
+
+{%endblock%}

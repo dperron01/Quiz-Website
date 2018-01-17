@@ -1,0 +1,47 @@
+{% extends 'navbar.html' %}
+{% block title %}Results Found{% endblock %}
+{% block body %}
+
+      {% with messages = get_flashed_messages()%}
+            {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-info">
+                        <strong>{{ message }}</strong>
+                  </div>
+                {% endfor %}
+            {% endif %}
+      {% endwith %}
+
+  <h1>Search results for {{ query }}:</h1>
+{% if results %}
+
+<h2>Topics</h2>
+    {% for result in results %}
+      <a href="/quiz/view/{{result}}" class="list-group-item list-group-item-info">
+      <h4>
+      {{result}}
+      </h4>
+      </a>
+    {% endfor %}
+    <br>
+<a href="/search_results/{{query}}/topics" class="btn btn-info" role="button">See All</a>
+{%else%}
+<h3>Not Found!</h3>
+{% endif %}
+
+{% if users %}
+<h2>Users</h2>
+{% for user in users %}
+      <a href="/user/{{user.firstname}}_{{user.lastname}}.{{user.userID}}" class="list-group-item list-group-item-info"><h4>{{user.firstname}} {{user.lastname}}<br>
+      {% if user.Dp_filename==None %}
+      <img src="/static/site_images/programming.jpg" alt="Cinque Terre" width="100" height="100">
+      {% else %}
+      <img src="/static/img/{{user.Dp_filename}}" alt="Profile Photo" width="100" height="100">
+      {% endif %}
+      </h4></a>
+{% endfor %}
+<br>
+<a href="/search_results/{{query}}/users" class="btn btn-info" role="button">See All</a>
+{% endif %}
+
+{% endblock %}

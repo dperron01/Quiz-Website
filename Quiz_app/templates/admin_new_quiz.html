@@ -1,0 +1,90 @@
+{% extends 'navbar.html' %}
+
+{% block body %}
+
+<div class=""  style="padding: 1em; padding-top:0;">
+  <div class="page-header">
+    {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="message" style="color: red; font-size: 15px;">{{message}}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  {% if questions.items %}
+    <h2>Administrative Page: List of Questions For Approval - <span class="badge" style="background-color:#f7c559; font-size:20px;">{{pending_ques}}</span> new requests.</h2>
+  </div>
+  <div class="">
+    <table class="table table-striped" id="">
+      <thead>
+        <tr>
+          <th>Ques ID</th>
+          <th>Topic ID</th>
+          <th>Topic Name</th>
+          <th>Question status</th>
+          </tr>
+      </thead>
+  {% else %}
+  <div>
+    <h2>Currently No Questions For Approval!</h2>
+  </div>
+  {% endif %}
+      <tbody>
+        {% for question in questions.items %}
+          <tr>
+            <td> {{ question.ques_ID }} </td>
+            <td> {{ question.topic_ID }} </td>
+            <td> {{ question.topic_Name }}</td>
+            <td> {{ question.ques_Status }}</td>
+          </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="panel panel-primary">
+<div class="panel-heading">{{question.ques}}</div>
+    <ul class="list-group">
+        <li class="list-group-item"><b>A</b> : {{question.optA}} </li>
+        <li class="list-group-item"><b>B</b> : {{question.optB}} </li>
+        <li class="list-group-item"><b>C</b> : {{question.optC}} </li>
+        <li class="list-group-item"><b>D</b> : {{question.optD}} </li>
+        <li class="list-group-item"><b>CORRECT ANSWER : </b> {{question.answer}} </li>
+    </ul>
+</div>
+<form action="{{ url_for('admin_new_ques') }}" method="POST">
+  {{ form.hidden_tag() }}
+  <h4 style="display: inline-flex;"> Question Id : </h4>
+    <input type="text" name="ques_id" style="height: 36px; width: 110px;" required="Please Enter Question ID">&emsp;&emsp;
+  <h4 style="display: inline-flex;"> Decision : </h4>
+    <select name="ques_status" style="height: 36px; width: 110px;">
+      <option>approved</option>
+      <option>pending</option>
+    </select>&emsp;&emsp;
+  <button class="btn ">Submit</button><br><br>
+</form>
+  {% endfor %}
+  </div>
+
+<div style="display:inline-flex;">
+  {% if questions.has_prev %}
+    <h3>
+      <a href="{{ url_for('admin_new_ques', page = questions.prev_num) }}" style="padding-left: 0.5em;">
+      <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> prev</a> |
+    </h3>
+    {% else %}
+    <h3>
+      <a style="padding-left: 0.5em;"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> prev</a> |
+    </h3>
+    {% endif %}
+    {% if questions.has_next%}
+    <h3>
+      <a href="{{ url_for('admin_new_ques', page = questions.next_num) }}"> next
+       <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a>
+    </h3>
+    {% else %}
+    <h3>
+      <a> next <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a>
+    </h3>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'navbar.html' %}
+{% block title %}Account{% endblock %}
+
+{%block body%}
+
+
+  <div class="a container">
+  <div class="adiv">
+  {% if user.Dp_filename==None %}
+  <img src="/static/site_images/programming.jpg" class="img-circle" alt="Cinque Terre" width="304" height="236">
+  {% else %}
+  <img src="/static/img/{{user.Dp_filename}}" class="img-circle" alt="Profile Photo" width="304" height="236">
+  {% endif %}
+  </div>
+   <h2> Profile Photo</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.photo }}
+    <input type="submit">
+</form>
+    <div>
+        <div ><h2 class="ah2"> Account Information</h2></div>
+        <div > <a href='/updateProfile' role="button" class="btn btn-info aa">Update Profile</a></div>
+      </div>
+
+  <table class="table table-striped">
+
+      <tr>
+        <th>First name</th>
+        <td>{{user.firstname}}</td>
+      </tr>
+      <tr>
+        <th>Last name</td>
+        <td>{{user.lastname}}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{user.email}}</td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td>{{user.phone}}</td>
+      </tr>
+      <tr>
+        <th>Current Level</th>
+        <td>{{user.user_level}}</td>
+      </tr>
+  </table>
+  <!-- <div class="test-history-div"> -->
+  <div class="card">
+  <div class="card-header" role="tab" id="headingTwo">
+    <h3 class="mb-0" style="color:white;">
+      <a class="collapsed" style="color:#fff;" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        Test History (click to expand)
+      </a>
+    </h3>
+  </div>
+  <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+    <div class="card-block">
+      <table class="table table-striped" style="width:100%;">
+          <tr>
+            <th> Test ID</th>
+            <th> Test Date</th>
+            <th> Topic</th>
+            <th> Test Result</th>
+          </tr>
+          {% for tests in test_ID %}
+          <tr>
+            <td> {{tests.test_ID}}</td>
+            <td> {{tests.test_Date}}</td>
+            <td> {{tests.topic_ID}}</td>
+            <td> {{tests.test_Result}}</td>
+          {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- </div> -->
+  </div>
+
+
+
+{%endblock%}

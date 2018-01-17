@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Ask us</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style=" background-image: url({{ url_for('static', filename='img/main-page-image2.jpg') }})">
+
+<nav class="navbar navbar-light navbar-static-top" style="background-color: #1676a3; " role="navigation">
+  <div class="container-fluserID">
+    <div style="margin-left:40px;" class="navbar-header">
+      <a style="color:white; font-size:200%" class="navbar-brand" href="#">Peer Quiz</a>
+    </div>
+
+    <form action = "/login" class="navbar-form navbar-right" role="search" method = "post">
+      {{ form1.csrf_token }}
+      <div class="form-group">
+
+          {% if form1.email.errors %}
+            {% for error in form1.email.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form1.email (placeholder='Email',class="form-control")}}
+
+          {% if form1.password.errors %}
+            {% for error in form1.password.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+         {{ form1.password (placeholder='Password', class="form-control") }}
+          <span style=" margin-left:1em; margin-right:1em;">
+           {{ form1.submit(class="btn btn-outline-primary", style="font-style:normal;") }}
+          </span>
+          </br>
+          <a href="/reset" style="color: #FFF; padding-left: 15em;"><em>Forgot password?</em></a>
+      </div>
+    </form>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="card-index card card-container">
+  {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="message">{{message}}</div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+  <h2><strong> Create a New Account </strong></h2><hr />
+  <p><em> It's free and always will be! </em></p>
+
+    <form class="form-signin" action="/signup" method="POST">
+      {{ form2.hidden_tag()}}
+      <div class="">
+      {{ form2.first_name.label }}
+          {% if form2.first_name.errors %}
+            {% for error in form2.first_name.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+         {{ form2.first_name (placeholder='First Name')}}
+        </div>
+      <div class="">
+          {{ form2.last_name.label }}
+
+          {% if form2.last_name.errors %}
+            {% for error in form2.last_name.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form2.last_name (placeholder='Last Name') }}
+        </div>
+
+        <div class="">
+          {{ form2.email.label }}
+
+          {% if form2.email.errors %}
+            {% for error in form2.email.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form2.email (placeholder='example@some.com')}}
+        </div>
+
+        <div class="">
+          {{ form2.phone_no.label }}
+
+          {% if form2.phone_no.errors %}
+            {% for error in form2.phone_no.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form2.phone_no (placeholder='Phone Number') }}
+        </div>
+
+        <div class="">
+          {{ form2.password.label }}
+
+          {% if form2.password.errors %}
+            {% for error in form2.password.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form2.password (placeholder='Password') }}
+        </div>
+
+        <div class="">
+          {{ form2.re_password.label }}
+
+          {% if form2.re_password.errors %}
+            {% for error in form2.re_password.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form2.re_password (placeholder='Confirm Password') }}
+        </div>
+
+        <div class="form-check">
+          <label class="form-check-label">
+                {{ form2.remember_me }} {{ (' Remember Me') }}
+            </label>
+          </div>
+
+        <div class="clearfix row">
+              {{ form2.submit(class="btn btn-outline-primary", style="font-style:normal;") }}
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

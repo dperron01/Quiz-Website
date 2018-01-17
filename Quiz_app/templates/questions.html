@@ -1,0 +1,39 @@
+{% extends 'navbar.html' %}
+{% block title %}Quiz{% endblock %}
+
+{%block body%}
+<div class="qdiv" style="margin-top:1em;">
+  <hr /><h2>Quiz</h2><hr />
+</div>
+<div>
+  <form method="POST" class="quizform" style="color:#000000">
+    {{ form.hidden_tag() }}
+    <div class="list-group" style="text-align:left;">
+        {% for question in form.questions %}
+          <a class="list-group-item list-group-item-action list-group-item-info">{{ question.bart.label() }}</a>
+            <a class="list-group-item list-group-item-action">{{ question.bart() }}</a>
+          {% endfor %}
+      <hr />
+    </div>
+    {% if form.questions %}
+    <div class="keep-button-left" style="float:left;">
+    <button style="margin-left:2em;" class="btn btn-outline-primary">Submit</button>
+    </div>
+    {% else %}
+    <div>
+      <h2>Currently No Questions Available!</h2>
+    </div>
+    {% endif %}
+  </form>
+  <br />
+  <hr />
+</div>
+
+{% if form.errors %}
+<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+  <strong>Alert!</strong> {{ form.errors }}
+</div>
+{% endif %}
+
+{%endblock%}

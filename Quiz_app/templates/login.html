@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Peer Quiz</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body  style=" background-image: url({{ url_for('static', filename='img/main-page-image2.jpg') }})">
+<nav class="navbar navbar-light navbar-static-top" style="background-color: #1676a3; color:#fff;" role="navigation">
+  <div class="container-fluserID">
+    <div style="margin-left:40px;" class="navbar-header">
+      <a style="color:white; font-size:200%;" class="navbar-brand" href="/">Peer Quiz</a>
+    </div>
+    <a href="/signup">
+    <button style="margin-top:6px; float:right; padding-right:2em;" type="submit" class="btn btn-default">Signup</button>
+    </a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="card-index card card-container" style="float:center;">
+    <h2 style = "font-size:150%;"> Sign in </h2><hr />
+    <form action = "{{ url_for('login') }}" class="form-signin"  method = "POST">
+      {{ form.hidden_tag()}}
+      {% with messages = get_flashed_messages()%}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-info">
+              <strong>{{ message }}</strong>
+             </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      <div class="form-group">
+       {{ form.email.label }}
+
+          {% if form.email.errors %}
+            {% for error in form.email.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form.email (placeholder='Email')}}
+      </div>
+      <div class="form-group">
+        {{ form.password.label }}
+
+          {% if form.password.errors %}
+            {% for error in form.password.errors %}
+            <div class="alert alert-danger alert-dismissable">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+              <strong>Alert!</strong> {{ error }}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+          {{ form.password (placeholder='Password') }}
+      </div>
+
+          <label class="form-group" for="remember_me">
+                        {{ form.remember_me }} {{ ('Remember Me') }}
+          </label>
+      </br>
+      <p><a href="/reset" style="margin-top:0; padding-top:0;"><em>Forgot password?</em></a></p>
+      <div class="clearfix">
+        {{ form.submit(class="btn btn-outline-primary") }}
+        </div>
+    </form>
+
+  </div>
+</div>
+
+</body>

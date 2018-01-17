@@ -1,0 +1,36 @@
+{% extends 'navbar.html' %}
+{% block title %}Create a Question{% endblock %}
+
+{%block body%}
+     {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+  <div class="qdiv">
+    <hr /><h2>Select a Topic to create Quiz</h2><hr />
+  </div>
+
+<!-- <p style="color:grey;">On this page we will iterate through the topics, selecting a topic will take you to question creation screen for the specific topic</p> -->
+
+<ul class="pagination">
+  {% for i in range(topics.pages) %}
+  {% if i + 1 == topics.page %}
+  <li class="active"><a href="/quiz/create/{{i + 1}}">{{i + 1}}</a></li>
+  {% else %}
+  <li><a href="/quiz/create/{{i + 1}}">{{i + 1}}</a></li>
+  {% endif %}
+  {% endfor %}
+</ul>
+
+{% for topic in topics.items %}
+  <a href="/quiz/create/{{topic.topic_Name}}/questions" class="list-group-item list-group-item-info"><h4>{{topic.topic_Name}}</h4>
+  <p style="color:grey;" class="mb-1">Description: {{topic.topic_Desc}}</p></a>
+{% endfor %}
+<br>
+  <div class="qdiv">
+    <hr /><h2><a href="/quiz/create/topic">Create New Topic</a></h2><hr />
+</div>
+{%endblock%}

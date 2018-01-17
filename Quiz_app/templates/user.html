@@ -1,0 +1,37 @@
+{% extends 'navbar.html' %}
+{% block title %}{{current_user.firstname}}{% endblock %}
+
+{%block body%}
+{% with messages = get_flashed_messages()%}
+              {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-info" role="alert">
+    				<strong>{{ message }}</strong>
+  				</div>
+                {% endfor %}
+              {% endif %}
+{% endwith %}
+
+<script>
+  $(".alert").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+</script>
+{% if (current_user.firstname == 'admin') or (current_user.firstname == 'Admin') %}
+<div class="mdiv">
+  <hr /><h2>Welcome, Admin</h2><hr />
+</div>
+<div class="alert alert-warning">
+<h3><a href="{{ url_for('admin_new_topic')}}" style="font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;" class="alert-link">You have
+    <span class="badge" style="background-color:#f7c559; font-size:16px;">{{pending_topic}}</span> new TOPIC requests</a></h3>
+</div>
+
+<div class="alert alert-warning">
+  <h3><a href="{{ url_for('admin_new_ques')}}" style="font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif;" class="alert-link">You have
+    <span class="badge" style="background-color:#f7c559; font-size:16px;">{{pending_ques}}</span>  new QUESTION requests</a></h3>
+</div>
+{% else %}
+  <div class="list-group">
+    <a href="/quiz/create" class="list-group-item list-group-item-action list-group-item-info"><h3>Create Quiz</h3></a>
+    <a href="/quiz/take" class="list-group-item list-group-item-action list-group-item-warning"><h3>Take Quiz</h3></a>
+  </div>
+{% endif %}
+{%endblock%}

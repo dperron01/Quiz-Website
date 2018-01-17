@@ -1,0 +1,99 @@
+{% extends 'navbar.html' %}
+
+{% block body %}
+<div class="" style="padding: 1em;">
+  <div class="page-header">
+    {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+
+        <div class="message" style="color: red; font-size: 15px;">{{message}}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <h2>Administrative Page: List of Topics For Approval - <span class="badge" style="background-color:#f7c559; font-size:20px;">{{pending_topic}}</span> new requests.</h2>
+  </div>
+
+  <div class="" >
+    <table class="table table-striped" id="">
+      <thead>
+        <tr>
+          <th>Topic ID</th>
+          <th>Topic Name</th>
+          <th>Topic Decription</th>
+          <th>Topic approved</th>
+          <th></th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for topic in topics.items %}
+          <tr>
+            <td> {{ topic.topic_ID }} </td>
+            <td> {{ topic.topic_Name }} </td>
+            <td> {{ topic.topic_Desc }}</td>
+            <td> {{ topic.topic_approved }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br><br>
+    {% if topics.items %}
+    <form action="{{ url_for('admin_new_topic') }}" method="POST">
+     {{ form.hidden_tag()}}
+      <div >
+        {{ form.topic_id.label }}&emsp;
+        {{ form.topic_id}}
+
+        {% if form.topic_id.errors %}
+          {% for error in form.topic_id.errors %}
+          <div class="alert alert-danger alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Alert!</strong> {{ error }}
+          </div>
+          {% endfor %}
+        {% endif %}
+      </div><br>
+      <div style="display: inline-flex;" class="qdiv">
+          {{ form.comment.label }}
+          {{ form.comment }}
+      </div><br><br>
+      <div id="process_input" style="float: left; padding-left: 3em;">
+
+          {{ form.submit2(class="btn btn-outline-primary") }}
+          &emsp;&emsp;&emsp;&emsp;
+          {{ form.submit1(class="btn btn-outline-primary") }}
+      </div>
+      </form>
+      {% else %}
+      <div>
+        <h2>Currently No New Topics Submited!</h2>
+      </div>
+      {% endif %}
+  </div>
+  </div>
+  </br></br></br>
+
+<div style="display:inline-flex;">
+  {% if topics.has_prev %}
+    <h3>
+      <a href="{{ url_for('admin_new_topic', page = topics.prev_num) }}" style="padding-left: 0.5em;">
+      <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> prev </a> |
+    </h3>
+    {% else %}
+    <h3>
+      <a style="padding-left: 0.5em;"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> prev </a> |
+    </h3>
+    {% endif %}
+    {% if topics.has_next%}
+    <h3>
+      <a href="{{ url_for('admin_new_topic', page = topics.next_num) }}"> next
+        <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a>
+    </h3>
+    {% else %}
+    <h3>
+      <a >next <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a>
+    </h3>
+  {% endif %}
+</div>
+
+{% endblock %}

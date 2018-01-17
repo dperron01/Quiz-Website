@@ -1,0 +1,120 @@
+{% extends 'navbar.html' %}
+{% block title %}Make Quiz{% endblock %}
+
+{%block body%}
+
+     {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+  <div class="mdiv">
+    <hr /><h2>Please enter your question here</h2><hr />
+  </div>
+
+<div class="main-container">
+
+    <form class="form-question-create" method="POST" >
+      {{ form.hidden_tag()}}
+
+     <div class="form-group">
+        <a class="list-group-item list-group-item-action list-group-item-info">
+          <span>{{ form.question.label }}</span>
+          <span>{{ form.question (placeholder='Question')}}</span>
+          {% if form.question.errors %}
+            {% for error in form.question.errors %}
+              <span class="alert alert-danger alert-dismissable">
+                 {{ error }}
+              </span>
+            {% endfor %}
+          {% endif %}
+        </a>
+    </div>
+
+<div class="form-group opt-container">
+
+        <a class="list-group-item list-group-item-action list-group-item-info">
+          <div class="q_opt" style="display:block">
+            <span>{{ form.opta.label }}</span>
+              {{ form.opta (placeholder='Option A') }}
+
+              {% if form.opta.errors %}
+                  {% for error in form.opta.errors %}
+                    <span class="alert alert-danger alert-dismissable">
+                         {{ error }}
+                    </span>
+                  {% endfor %}
+              {% endif %}
+        </div>
+
+        <div class="q_opt" style="display:block">
+
+          <span>{{ form.optb.label }}</span>
+          {{ form.optb (placeholder='Option B')}}
+
+          {% if form.optb.errors %}
+            {% for error in form.optb.errors %}
+            <span class="alert alert-danger alert-dismissable">
+              {{ error }}
+            </span>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="q_opt">
+          <span>{{ form.optc.label }}</span>
+
+          {{ form.optc (placeholder='Option C') }}
+
+          {% if form.optc.errors %}
+            {% for error in form.optc.errors %}
+            <span class="alert alert-danger alert-dismissable">
+               {{ error }}
+            </span>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="q_opt">
+          <span>{{ form.optd.label }}</span>
+
+          {{ form.optd (placeholder='Option D') }}
+
+          {% if form.optd.errors %}
+            {% for error in form.optd.errors %}
+            <span class="alert alert-danger alert-dismissable">
+               {{ error }}
+            </span>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="">
+          <span>{{ form.answer.label }}</span>
+          {{ form.answer (placeholder='Correct Option', style="text-transform:uppercase") }}
+          {% if form.answer.errors %}
+            {% for error in form.answer.errors %}
+            <span class="alert alert-danger alert-dismissable">
+              {{ error }}
+            </span>
+            {% endfor %}
+          {% endif %}
+
+        </div>
+      </a>
+</div>
+
+        <div class="clearfix" style="margin-right:.1em; margin-left:.1em;">
+          <a class="list-group-item list-group-item-action list-group-item-info">
+          {{ form.submit(class="cus-btn btn btn-primary", style=" color:white; width:300px; margin-top:2em; margin-bottom: 2em;") }}
+          </a>
+        </div>
+      </form>
+
+</div>
+
+
+
+{%endblock%}

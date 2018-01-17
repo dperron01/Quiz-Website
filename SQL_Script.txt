@@ -1,0 +1,84 @@
+--------------All Tables with Constraints--------------
+
+----------------------------------------------------------------------
+CREATE TABLE ALL_USERS(
+    userID        varchar(30) PRIMARY KEY,
+    User_Name      varchar(50) NOT NULL,
+    User_Email     varchar(30) NOT NULL UNIQUE,
+    User_Phone     char(11) UNIQUE,
+    User_Level     SMALLINT CHECK(User_level >0 AND User_Level <7 ),
+    User_Image     bytea
+);
+
+INSERT INTO ALL_USERS VALUES('TechGeek007', 'Smith Lockwood', 'smith007@yahoo.ca', '7789001111', 1, NULL);
+SELECT * FROM ALL_USERS;
+----------------------------------------------------------------------
+
+CREATE TABLE  QUIZ_DATABASE(
+    Topic_ID      char(11) PRIMARY KEY,
+    Quiz_Name     varchar(20) NOT NULL UNIQUE,
+    Quiz_Desc     varchar(150)
+);
+
+INSERT INTO QUIZ_DATABASE Values('QIZ_FLA_001', 'Flask', 'Information on Quiz');
+SELECT * FROM QUIZ_DATABASE;
+
+----------------------------------------------------------------------
+CREATE SEQUENCE QuesID_SEQ START 101;
+
+CREATE TABLE QUIZ_TOPIC(
+    Ques_ID     BIGINT   PRIMARY KEY DEFAULT nextval('QuesID_SEQ'),
+    Topic_ID    char(11) REFERENCES QUIZ_DATABASE(Topic_ID),
+    Ques_Status char(10) CHECK(Ques_Status = 'Approved' OR Ques_Status = 'Pending' OR Ques_Status = 'Rejected') DEFAULT 'Pending',
+    Ques        varchar(500) NOT NULL UNIQUE,
+    OptA        varchar(500) NOT NULL DEFAULT '----',
+    OptB        varchar(500) NOT NULL DEFAULT '----',
+    OptC        varchar(500) NOT NULL DEFAULT '----',
+    OptD        varchar(500) NOT NULL DEFAULT '----',
+    Answer      char(1)
+);
+
+INSERT INTO QUIZ_TOPIC VALUES(Default, 'QIZ_FLA_001', Default, 'Is Flask a framework?', 'Yes', 'No', default, default, 'A');
+SELECT * FROM QUIZ_TOPIC;
+----------------------------------------------------------------------
+
+CREATE TABLE Feedback(
+    userID       varchar(30) REFERENCES ALL_USERS(userID),
+    Topic_ID      char(11)    REFERENCES QUIZ_DATABASE(Topic_ID),
+    User_Comment  varchar(150),
+    UpVotes       INT,
+    DownVotes     INT
+);
+
+INSERT INTO Feedback VALUES('TechGeek007','QIZ_FLA_001','Great!', 33,2);
+SELECT * FROM Feedback;
+
+----------------------------------------------------------------------
+CREATE SEQUENCE TestID_SEQ START 6001;
+
+CREATE TABLE TEST_RECORD(
+    Test_ID       BIGINT   PRIMARY KEY DEFAULT nextval('TestID_SEQ'),
+    userID       varchar(30) REFERENCES ALL_USERS(userID),
+    Topic_ID      char(11)    REFERENCES QUIZ_DATABASE(Topic_ID),
+    Test_Date     DATE NOT NULL Default CURRENT_DATE,
+    Test_Result   INT NOT NULL
+);
+
+INSERT INTO TEST_RECORD VALUES(Default, 'TechGeek007', 'QIZ_FLA_001', Default, 77);
+SELECT * FROM TEST_RECORD;
+
+----------------------------------------------------------------------
+
+CREATE TABLE POINTS_RECORD(
+    userID     varchar(30),
+    Ques_ID     BIGINT,
+    Points      INT,
+    PRIMARY KEY(userID, Ques_ID),
+    FOREIGN KEY(userID) REFERENCES ALL_USERS(userID),
+    FOREIGN KEY(Ques_ID) REFERENCES QUIZ_TOPIC(Ques_ID)
+);
+
+INSERT INTO POINTS_RECORD VALUES('TechGeek007', 101, 10);
+SELECT * FROM POINTS_RECORD;
+
+----------------------------------------------------------------------

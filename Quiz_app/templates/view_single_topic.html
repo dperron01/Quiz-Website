@@ -1,0 +1,50 @@
+{% extends 'navbar.html' %}
+{% block title %}{{topic}}{% endblock %}
+
+{%block body%}
+     {% with messages = get_flashed_messages()%}
+      {% if messages %}
+        {% for message in messages %}
+        <div class="message">{{message}}</div>
+        {% endfor %}
+      {% endif %}
+  {% endwith %}
+  <div class="qdiv">
+    <hr /><h2>{{topic}}</h2><hr />
+  </div>
+
+<div class="list-group">
+  <a href="/quiz/take/{{topic}}/questions" class="list-group-item list-group-item-action list-group-item-info"><h3>Take Quiz</h3></a>
+  <a href="/quiz/create/{{topic}}/questions" class="list-group-item list-group-item-action list-group-item-success"><h3>Add Questions</h3></a>
+  <a href="/quiz/take" class="list-group-item list-group-item-action list-group-item-warning"><h3>Choose Another Topic</h3></a>
+</div>
+
+<div>
+<h1>Comments</h1>
+<table class="table">
+{% for comment in comments %}
+{% if comment.user_Comment != "" %}
+<tr>
+<td>
+  {% if dicts[comment.UserID].Dp_filename==None %}
+  <a href="/user/{{ dicts[comment.UserID].firstname }}_{{ dicts[comment.UserID].lastname }}.{{ dicts[comment.UserID].userID }}">
+  {{ dicts[comment.UserID].firstname }}  {{ dicts[comment.UserID].lastname }}
+  <br>
+  <img src="/static/site_images/programming.jpg" alt="Cinque Terre" width="100" height="100"></a>
+  {% else %}
+  <a href="/user/{{ dicts[comment.UserID].firstname }}_{{ dicts[comment.UserID].lastname }}.{{ dicts[comment.UserID].userID }}">
+  {{ dicts[comment.UserID].firstname }}  {{ dicts[comment.UserID].lastname }}
+  <br>
+  <img src="/static/img/{{dicts[comment.UserID].Dp_filename}}" alt="Profile Photo" width="100" height="100"></a>
+  {% endif %}
+  </td>
+  <td>{{comment.user_Comment}}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</table>
+<br>
+<a href="/quiz/view/{{topic}}/comments" class="list-group-item list-group-item-action list-group-item-danger"><h3>View All Comments</h3></a>
+<div>
+
+{%endblock%}

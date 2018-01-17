@@ -1,0 +1,28 @@
+{% extends 'navbar.html' %}
+{% block title %}Score{% endblock %}
+
+{%block body%}
+
+<div class="list-group cust-boot-panel">
+  <a class="list-group-item list-group-item-action list-group-item-success"><h2>You scored {{ score }}</h2></a>
+</div>
+
+<div class="qdiv">
+  <hr /><h2>Rate this quiz</h2><hr />
+    <form method="POST" class="quizform" action="/quiz/rate/{{topic}}">
+      {{ form2.hidden_tag()}}
+      {{ form2.rating}}
+      <!-- <div class="element-in-form"> -->
+      {{ form2.comment.label}}
+      {{ form2.comment}}
+      <!-- </div> -->
+      <br /><br />
+  <button class="btn btn-outline-primary"  style="float:left;">Submit</button>
+</form>
+</div>
+<br /><br />
+<div class="list-group">
+  <a href="/quiz/take" class="list-group-item list-group-item-action list-group-item-warning"><h3>Take Another Quiz</h3></a>
+</div>
+
+{%endblock%}

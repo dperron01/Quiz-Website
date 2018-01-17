@@ -1,0 +1,105 @@
+{%extends 'navbar.html'%}
+
+
+{% block body %}
+
+ <div id='form-heading' class="udiv">
+   <h2>Update Profile</h2><hr/>
+ </div>
+<div class='form-container' style="margin-left:5em; ">
+ <form class="form-updateProfile" action="/updateProfile" method="POST">
+   {{ form3.hidden_tag()}}
+
+<div class="table-wrapper" style="color:black;  margin:0;">
+     <table class="update-prof">
+       <tr>
+         <td style="height:30px;">
+           <span>{{ form3.first_name.label }}</span>
+            {% if form3.first_name.errors %}
+              {% for error in form3.first_name.errors %}
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <strong>Alert!</strong> {{ error }}
+              </div>
+              {% endfor %}
+            {% endif %}
+          </td>
+          <td>
+            <span>{{ form3.first_name (value=current_user.firstname)}}</span>
+          </td>
+       </tr>
+
+       <tr>
+         <td style="height:30px;">
+           <span>{{ form3.last_name.label }}</span>
+            {% if form3.last_name.errors %}
+              {% for error in form3.last_name.errors %}
+              <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <strong>Alert!</strong> {{ error }}
+              </div>
+              {% endfor %}
+            {% endif %}
+
+          </td>
+          <td>
+            <span>{{ form3.last_name (value=current_user.lastname) }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="height:30px;">
+            <span>{{ form3.email.label }}</span>
+              {% if form3.email.errors %}
+                {% for error in form3.email.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                  <strong>Alert!</strong> {{ error }}
+                </div>
+                {% endfor %}
+              {% endif %}
+           </td>
+           <td>
+             <span>{{ form3.email (value=current_user.email) }}</span>
+           </td>
+         </tr>
+         <tr>
+           <td style="height:30px;">
+             <span>{{ form3.phone_no.label }}</span>
+              {% if form3.phone_no.errors %}
+                {% for error in form3.phone_no.errors %}
+                <div class="alert alert-danger alert-dismissable">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                  <strong>Alert!</strong> {{ error }}
+                </div>
+                {% endfor %}
+             {% endif %}
+           </td>
+          <td>
+           <span>{{ form3.phone_no (value=current_user.phone) }}</span>
+         </td>
+       </tr>
+         <!-- <div>
+             <span>{{ form3.last_name.label }}</span>
+              {% if form3.last_name.errors %}
+                {% for error in form3.last_name.errors %}
+                  <p class="error-message">{{ error }}</p>
+                 {% endfor %}
+               {% endif %}
+
+             <span style="margin-left:5em;">{{ form3.last_name (placeholder='Last Name') }}</span>
+           </div> -->
+<tr>
+  <td style="width:50%;"> </td>
+  <td style="width:50%; padding-top:1em; height:6em; content-align:center;"><span>
+    <div class="clearfix">
+      {{ form3.submit(class="btn btn-primary") }}
+    </div>
+  </span></td>
+</tr>
+</table>
+</div>
+</form>
+
+</div>
+
+{% endblock %}

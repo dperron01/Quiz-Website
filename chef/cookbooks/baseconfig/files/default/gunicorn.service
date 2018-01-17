@@ -1,0 +1,19 @@
+
+
+[Unit]
+Description="gunicorn process"
+After=network.target
+
+[Service]
+Environment='PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games' 'INSTHOME=/home/ubuntu/project' 'LANG=en_CA.UTF-8'
+
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/project
+ExecStart=/usr/local/bin/gunicorn run:app --log-file=/var/log/gunicorn/server.log --bind 127.0.0.1:8000 
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,63 @@
+{% extends 'navbar.html' %}
+
+{% block body %}
+ 
+<div class="" style="padding: 1em; padding-top:0;">
+  <div class="page-header">
+    <h2>Administrative Page: List of Users</h2>
+  </div>
+ 
+  <div class="">
+    <table class="table table-striped" id="">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Role</th>
+          <th>First Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Registration Date</th>
+          <th>Email Confirmed</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for user in users.items %}
+          {% if user.role == 'user' %}
+          <tr>
+            <td> {{ user.userID }} </td>
+            <td> {{ user.role }} </td>
+            <td> {{ user.firstname }}</td>
+            <td> {{ user.email }} </td>
+            <td> {{ user.phone }} </td>
+            <td> {{ user.registered_on_app }} </td>
+            <td> {{ user.email_confirmed }} </td>
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ 
+<div style="display:inline-flex;">
+  {% if users.has_prev %}
+    <h3>
+      <a href="{{ url_for('admin_new_ques', page = questions.prev_num) }}" style="padding-left: 0.5em;">
+      <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> prev</a> |
+    </h3>
+    {% else %}
+    <h3>
+      <a style="padding-left: 0.5em;"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span> prev</a> |
+    </h3>
+    {% endif %}
+    {% if users.has_next%}
+    <h3>
+      <a href="{{ url_for('admin_new_ques', page = questions.next_num) }}"> next
+       <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a>
+    </h3>
+    {% else %}
+    <h3>
+      <a> next <span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a>
+    </h3>
+  {% endif %}
+</div>
+{% endblock %}
